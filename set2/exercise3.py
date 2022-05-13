@@ -2,12 +2,22 @@
 """Modify each function until the tests pass."""
 
 
+from calendar import c
+from distutils.command.build_scripts import first_line_re
+from inspect import classify_class_attrs
+from re import sub
+from shutil import move
+from textwrap import fill
+
+
 def is_odd(a_number):
     """Return True if a_number is odd, and False if a_number is even.
 
     Look into modulo division using the '%' operator as one way of doing this.
     """
-    return None
+    the_number_is = a_number % 2 == 1
+
+    return the_number_is
 
 
 def fix_it(moves=True, should_move=True):
@@ -25,7 +35,27 @@ def fix_it(moves=True, should_move=True):
     Most people write this function with 4 return statements. 
     As an extra challenge, see if you can get that down to three.
     """
-    return None
+    if moves == should_move:
+        return "No Problem"
+    elif moves and not should_move:
+        return "Duct Tape"
+    elif should_move and not moves:
+        return "WD-40"
+
+
+    # if moves == should_move:
+    #     return "No Problem"
+    #     # combine operators to do something. 
+
+    #     # "else, if it moves AND [is NOT] or 
+    #     # [opposite of condition to should_move] should NOT move"
+
+    #     # the NOT is inversing the boolean? 
+    # elif moves and not should_move:
+    #     return "Duct Tape"
+    #     # why the fuck is the else not picking up the variable name
+    # else:  
+    #     return "WD-40"
 
 
 def loops_1a():
@@ -35,7 +65,15 @@ def loops_1a():
     return a list of 10 items, each one a string with exacly one star in it.
     E.g.: ['*', '*', '*', '*', '*', '*', '*', '*', '*', '*']
     """
-    return None
+    my_list = []
+
+    for i in range(10):
+        my_list.append("*")
+    # !!! THE RETURN NEEDS TO BE ON THE SAME 
+    # INDENT AS THE FOR LOOP ... FFS!
+    return my_list
+
+    
 
 
 def loops_1c(number_of_items=5, symbol="#"):
@@ -45,7 +83,12 @@ def loops_1c(number_of_items=5, symbol="#"):
     string with exacly one symbol in it.
     E.g.: ['#', '#', '#', '#', '#']
     """
-    return None
+
+    symbol_list = []
+    for i in range(number_of_items):
+        symbol_list.append(symbol)
+    
+    return symbol_list
 
 
 def loops_2():
@@ -66,7 +109,39 @@ def loops_2():
             ['*', '*', '*', '*', '*', '*', '*', '*', '*', '*'],
           ]
     """
-    return None
+
+    # up to here. Fix this !!!
+    # starfield = []
+    #sub_list = []
+    #mid_list = []
+
+    # for i in range(10):
+    #     sub_List = []
+    #     sub_List.append("*")
+    #     for j in range(10):
+    #         mid_list = []
+    #         mid_list.append(sub_List[9])
+    #         starfield.append(mid_list)
+    
+    # return starfield
+    # nooooooooooooope 
+
+    starfield = []
+
+    for i in range(10):
+        sub_list = []
+        for j in range(10):
+            sub_list.append('*')
+        starfield.append(sub_list)
+            
+    return starfield
+    # not 100% clear... draw a diagram. work it out.
+
+
+
+    
+        
+
 
 
 def loops_3():
@@ -90,7 +165,21 @@ def loops_3():
     TIP: notice that this needs to to return strings of numbers,
          so call str(number) to cast.
     """
-    return None
+
+    block = []
+
+    for i in range(10):
+        inner_block = []
+        for j in range(10):
+            # cast the iterator to string here
+            inner_block.append(str(i))
+            #dont do the below... do it earlier
+            #conversion = str(inner_block)
+        block.append(inner_block)
+    
+    return block
+
+
 
 
 def loops_4():
@@ -110,7 +199,26 @@ def loops_4():
       ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9']
     ]
     """
-    return None
+    # make empty list for first loop [0...9]
+    in_rise_block = []
+    # make another empty list for second loop [outside of prev. loop]
+    # no don't do this... see below
+    # out_rise_block = []
+    
+    for i in range(10):
+        # append to list OUTSIDE of loop - so the contents get called again
+        # also... don't forget to cast contents of list to a STRING
+        in_rise_block.append(str(i))
+        # having the list created INSIDE the first loop seems to be the key
+        out_rise_block = []
+        for j in range(10):
+            out_rise_block.append(in_rise_block)
+        
+        # naming of variables, eg "inner/ outer" can get confusing
+        # "in" meaning inner container of data [list], not inner loop
+        # "out" meaning outer container, single item list [of lists]
+
+    return out_rise_block
 
 
 def loops_5():
@@ -137,7 +245,17 @@ def loops_5():
         "There are {} green bottles".format(8)
     you'll come to see the pros and cons of each over time.
     """
-    return None
+    a_list = []
+    
+    for i in range(10):
+        # 10 lists
+        first_line = []
+        for j in range(5):
+            # using the concatenating method as to include multiple iterators
+            first_line.append("(i" + str(i) + ", j" + str(j) + ")")
+        a_list.append(first_line)
+
+    return a_list
 
 
 def loops_6():
@@ -160,7 +278,27 @@ def loops_6():
     You can use a variable.
     TIP: look out for the starting condition.
     """
-    return None
+    # i've accidentally already done this previously somewhere....
+
+    # issue... first list = empty. Get to the bottom of this... 
+
+    wedge = []
+    
+    for i in range(10):
+        inner = []
+        # j does not have a value for the first iteration of i ???
+        # fix = add "+1" to resolve value [plus to get to the full range]
+        for j in range(i + 1):
+            # don't forget to cast to string
+            inner.append(str(j))
+        # appending list in previous indent = initial "i" loop?
+        # ... sanity check    
+        wedge.append(inner)
+    
+
+    return wedge
+    
+
 
 
 def loops_7():
@@ -184,7 +322,66 @@ def loops_7():
     This is a hard problem. Use lots of experimentation and draw
     lots of diagrams!
     """
-    return None
+    # list of 5 sub-lists // each sub-list has 9 items [not 10!]
+    
+    # 9 - 5 - j     // gives index of start postition
+    # j + 2         // 2, 3, 4, 5, 7 // fuck 
+    # get some sleep. 
+
+    # re-appraoch this.
+
+    # fin_list = []
+
+    # for i in range(5):
+    #     first_container = []
+    #     for j in range(9):
+    #         click = j + 1
+    #         first_container[(9-4)-click].append('*')
+    #     fin_list.append(first_container)
+    
+    # return None
+
+    # no trickery here...  
+
+    # 0 + 1; 1 + 2; 2 + 3; etc
+
+    # franz_list = []
+
+    # five lists
+    # for i in range(5):
+    #     inner = []
+    #     for j in range(i):
+    #         # deeper = []
+    #         for k in range(i + (j+1)):
+    #             inner.append("*")
+        
+    #     franz_list.append(inner)
+    
+    # return franz_list
+
+    pyramid = []
+
+    for i in range(5):
+        container = []
+        for j in range(9):
+            # set bounds for stars to be appended into list
+            # starting below index 3, with iterator to increase
+            # other bounds... if greater than + iterator
+            # ffs
+            if j > (3 - i) and j < (5 + i):
+                container.append('*')
+            else:
+                container.append(' ')
+        # FUCKING INDENTS
+        pyramid.append(container)
+    
+    return pyramid
+            
+
+
+
+
+
 
 
 def little_printer(some_kind_of_list, exercise_name):

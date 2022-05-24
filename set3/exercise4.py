@@ -1,10 +1,7 @@
 # -*- coding: UTF-8 -*-
 """Set 3, Exercise 4."""
 
-
 import math
-
-# import time
 
 
 def binary_search(low, high, actual_number):
@@ -24,12 +21,41 @@ def binary_search(low, high, actual_number):
     Use the VS Code debugging tools a lot here. It'll make understanding 
     things much easier.
     """
+
+
     tries = 0
     guess = 0
+    guessed = False
 
-    # Write your code in here
+    print('Guess a number between {} and {}!'.format(low, high))
 
-    return {"guess": guess, "tries": tries}
+    while not guessed:
+        try:
+            my_guess = int(input('Input a number to begin: '))
+            print('You have guessed {}!'.format(my_guess))
+            cvnt = dict()
+            guess += 1
+            tries += 1
+            cvnt['guess'] = my_guess
+            cvnt ['tries'] = tries
+            if my_guess == actual_number:
+                print('Holy shit you got it!')
+                guessed = True
+            elif my_guess < low and actual_number:
+                print('Not in range, too small.')
+            elif my_guess > high and actual_number:
+                print('Exceeded than the max number of {}!'.format(high))
+            elif my_guess < actual_number and my_guess > low:
+                print('Too small')
+            elif my_guess > actual_number and my_guess < high:
+                print('Too high')
+        except:
+            print('Not a number, try again.')
+        
+    return cvnt
+
+
+
 
 
 if __name__ == "__main__":

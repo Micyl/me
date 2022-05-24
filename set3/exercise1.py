@@ -12,15 +12,34 @@ def loop_ranger(start, stop=None, step=1):
     The look up the docs for range(), you can answer this with just the range 
     function, but we'd like you to do it the long way, probably using a loop.
     """
-    return None
 
+    numero_uno = []
+    # initiating live_number variable
+    live_number = start
+    
+    while live_number < stop:
+        # incrementing live_number by step value
+        numero_uno.append(live_number)
+        # putting the step AFTER 
+        live_number += step
+    return numero_uno
+    
 
 def lone_ranger(start, stop, step):
     """Duplicate the functionality of range.
 
     Look up the docs for range() and wrap it in a 1:1 way
     """
-    return None
+    numero = []
+    # initiating live_number variable
+    live_number = start
+    
+    while live_number < stop:
+        # incrementing live_number by step value
+        numero.append(live_number)
+        # putting the step AFTER 
+        live_number += step
+    return numero
 
 
 def two_step_ranger(start, stop):
@@ -29,7 +48,10 @@ def two_step_ranger(start, stop):
     Sometimes you want to hide complexity.
     Make a range function that always has a step size of 2
     """
-    return None
+    numero_tres = []
+    for i in range(start, stop, 2):
+        numero_tres.append(i)
+    return numero_tres
 
 
 def stubborn_asker(low, high):
@@ -40,7 +62,13 @@ def stubborn_asker(low, high):
 
     Look up the docs for input
     """
-    return None
+    while True:
+        the_input = input(f"Insert a number between {low} and {high}: ")
+        
+        our_number = int(the_input) 
+
+        if our_number >= low and our_number <= high:
+            return our_number
 
 
 def not_number_rejector(message):
@@ -50,7 +78,12 @@ def not_number_rejector(message):
     (e.g. "cow", "six", "8!") then throw it out and ask for an actual number.
     When you do get a number, return it.
     """
-    return None
+    while True:
+        try:    
+            number_input = int(input(f"Insert a number: "))
+            return number_input
+        except:
+            print('You muppet... a NUMBER!')
 
 
 def super_asker(low, high):
@@ -61,7 +94,16 @@ def super_asker(low, high):
     Try to call at least one of the other functions to minimise the
     amount of code.
     """
-    return None
+    while True:
+        try:
+            the_input = input(f"Insert a number between {low} and {high}: ")
+            our_number = int(the_input) 
+            if our_number >= low and our_number <= high:
+                return our_number           
+            else:
+                print("that number is out of bounds")
+        except:
+            print("that wasn't a number")
 
 
 if __name__ == "__main__":

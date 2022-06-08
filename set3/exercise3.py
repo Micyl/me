@@ -67,7 +67,7 @@ def advancedGuessingGame():
             elif guessed_number < lower_bound and real_number:
                 print('Not a very bright one are we... I mean, you chose the numbers!!! Try Again...')
             elif guessed_number > upper_bound and real_number:
-                print('You absolute nonce... Why would the number be ousite of what you have set?? Try Again...')
+                print('You absolute nonce... Why would the number be ousite of what you have set??? Try Again...')
             elif guessed_number < real_number and guessed_number > lower_bound:
                 print('Way too small dude!')
             elif guessed_number > real_number and guessed_number < upper_bound:

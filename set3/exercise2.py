@@ -18,7 +18,7 @@ def exampleGuessingGame():
     print("OK then, a number between 0 and {} ?".format(upperBound))
     upperBound = int(upperBound)
 
-    actualNumber = random.randint(0, upperBound)
+    actualNumber = random.randint(0, upperBound) 
 
     guessed = False
 

@@ -39,7 +39,7 @@ def binary_search(low, high, actual_number):
             cvnt['guess'] = my_guess
             cvnt ['tries'] = tries
             if my_guess == actual_number:
-                print('Holy shit you got it!')
+                print('Holy shit you got it!!!')
                 guessed = True
             elif my_guess < low and actual_number:
                 print('Not in range, too small.')

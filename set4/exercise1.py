@@ -34,9 +34,14 @@ def get_some_details():
          dictionaries.
     """
     json_data = open(LOCAL + "/lazyduck.json").read()
-
     data = json.loads(json_data)
-    return {"lastName": None, "password": None, "postcodePlusID": None}
+
+    last_name = data["results"][0]["name"]["last"]
+    password = data["results"][0]["login"]["password"]
+    postcode = int(data["results"][0]["location"]["postcode"])
+    id_number = int(data["results"][0]["id"]["value"])
+
+    return {"lastName": last_name, "password": password, "postcodePlusID": (postcode + id_number)}
 
 
 def wordy_pyramid():
@@ -73,8 +78,60 @@ def wordy_pyramid():
     ]
     TIP: to add an argument to a URL, use: ?argName=argVal e.g. &wordlength=
     """
-    pass
+   
+    word_pyramid = []
+    for i in range(3, 20, 2):
+        r = requests.get(
+            f"https://us-central1-waldenpondpress.cloudfunctions.net/give_me_a_word?wordlength={i}"
+        )
+        word_up = r.text
+        word_pyramid.append(word_up)
+    
+    for j in range(20, 3, -2):
+        rj = requests.get(
+            f"https://us-central1-waldenpondpress.cloudfunctions.net/give_me_a_word?wordlength={j}"
+        )
+        word_down = rj.text
+        word_pyramid.append(word_down)
 
+    return word_pyramid
+
+
+
+# def original_pokedex(low=1, high=5):
+#     """ Return the name, height and weight of the tallest pokemon in the range low to high.
+
+#     Low and high are the range of pokemon ids to search between.
+#     Using the Pokemon API: https://pokeapi.co get some JSON using the request library
+#     (a working example is filled in below).
+#     Parse the json and extract the values needed.
+    
+#     TIP: reading json can someimes be a bit confusing. Use a tool like
+#          http://www.jsoneditoronline.org/ to help you see what's going on.
+#     TIP: these long json accessors base["thing"]["otherThing"] and so on, can
+#          get very long. If you are accessing a thing often, assign it to a
+#          variable and then future access will be easier.
+#     """
+    
+#     pokedex = []
+
+#     for i in range(1,5):
+#         url = f"https://pokeapi.co/api/v2/pokemon/{i}"
+#         r = requests.get(url)
+#         if r.status_code is 200:
+#             data = r.json()
+#             pokedex.append(
+#                 {"name": data['name'], "weight": data['weight'], "height": data['height'],}
+#             )
+    
+#     highest = -1
+#     tallest = "something"
+#     for p in pokedex:
+#         if p['height'] > highest:
+#             highest = p['height']
+#             tallest = p
+
+#     return p
 
 def pokedex(low=1, high=5):
     """ Return the name, height and weight of the tallest pokemon in the range low to high.
@@ -90,13 +147,25 @@ def pokedex(low=1, high=5):
          get very long. If you are accessing a thing often, assign it to a
          variable and then future access will be easier.
     """
-    template = "https://pokeapi.co/api/v2/pokemon/{id}"
+    
+    highest = -1.0
+    tallest_poke = "something"
 
-    url = template.format(id=5)
-    r = requests.get(url)
-    if r.status_code is 200:
-        the_json = json.loads(r.text)
-    return {"name": None, "weight": None, "height": None}
+    for i in range(low,high):
+        url = f"https://pokeapi.co/api/v2/pokemon/{i}"
+        r = requests.get(url)
+        if r.status_code == 200:
+            data = r.json()
+            p = {   
+                    "name": data['name'],
+                    "weight": data['weight'],
+                    "height": data['height'],
+                }
+            if p['height'] > highest:
+                highest = p['height']
+                tallest_poke = p
+
+    return tallest_poke
 
 
 def diarist():
@@ -113,7 +182,23 @@ def diarist():
          the test will have nothing to look at.
     TIP: this might come in handy if you need to hack a 3d print file in the future.
     """
-    pass
+    file_path = "set4/Trispokedovetiles(laser).gcode"
+    file = open(file_path, "r")
+    # readlines() function
+    lines = file.readlines()
+    counter = 0
+
+    for line in lines:
+        if "M10 P1" in line:
+            counter += 1
+    #close file after
+    file.close()
+
+    # encoding = "utf-8"
+
+    on_off = open("set4/lasers.pew", "w")
+    on_off.write(f"{counter}")
+    on_off.close()
 
 
 if __name__ == "__main__":

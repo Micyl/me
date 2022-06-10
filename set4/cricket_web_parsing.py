@@ -10,7 +10,7 @@ def get_scores():
     Helper function. No need to comment further
     '''
     r = requests.get(url)
-    while r.status_code is not 200:
+    while r.status_code != 200:
         r = requests.get(url)
     soup = BeautifulSoup(r.text, "lxml")
     data = soup.find_all("description")

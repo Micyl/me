@@ -2,7 +2,7 @@
 """Set 3, Exercise 4."""
 
 import math
-
+import random 
 
 def binary_search(low, high, actual_number):
     """Do a binary search.
@@ -21,40 +21,39 @@ def binary_search(low, high, actual_number):
     Use the VS Code debugging tools a lot here. It'll make understanding 
     things much easier.
     """
+    
+    # // is a "INTEGER DIVISION OPERATOR" meaning it will divide the
+    # left value by the right and will keep the integer result - no need to cast to int
 
+    # need a function to find median values per iteration
+
+    # fuck with the bounds... ie, iterate down or up from the high/ low
+    # can't seem to think of a way to test and increment atm...
 
     tries = 0
-    guess = 0
     guessed = False
 
-    print('Guess a number between {} and {}!'.format(low, high))
-
     while not guessed:
-        try:
-            my_guess = int(input('Input a number to begin: '))
-            print('You have guessed {}!'.format(my_guess))
-            cvnt = dict()
-            guess += 1
-            tries += 1
-            cvnt['guess'] = my_guess
-            cvnt ['tries'] = tries
-            if my_guess == actual_number:
-                print('Holy shit you got it!!!')
-                guessed = True
-            elif my_guess < low and actual_number:
-                print('Not in range, too small.')
-            elif my_guess > high and actual_number:
-                print('Exceeded than the max number of {}!'.format(high))
-            elif my_guess < actual_number and my_guess > low:
-                print('Too small')
-            elif my_guess > actual_number and my_guess < high:
-                print('Too high')
-        except:
-            print('Not a number, try again.')
+        tries += 1
+        guess = median(low, high)
         
-    return cvnt
+        if guess == actual_number:
+            guessed = True
+            # just put the dictionary as the return. don't fuck about with creating it
+            # earlier then having to return it from the function... 
+            return {"guess": guess, "tries": tries}
+
+        elif guess < actual_number:
+            low = guess + 1
+        
+        elif guess > actual_number: 
+            high = guess - 1
 
 
+
+def median(low, high):
+    median = (high + low) // 2
+    return median
 
 
 
